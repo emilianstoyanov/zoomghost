@@ -218,3 +218,17 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# ZoomGhost local secrets and machine-specific files
+.env.*
+!.env.example
+!**/.env.example
+zoom-ghost-web/config.js
+*.code-workspace
+.idea/
+.netlify/
+.zoom-bot-venv/
+.zoom-ghost-slack-venv/
+*.pem
+*.key
+credentials.json

@@ -1,0 +1,14 @@
+.idea/
+__pycache__/
+*.pyc
+*.pyo
+*.db
+.zoom-ghost-slack-venv/
+venv/
+.venv/
+.env
+.env.*
+!.env.example
+magic-login.html
+start_local.py
+*.log

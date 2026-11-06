@@ -1,0 +1,33 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Env files
+.env
+.Python
+
+# Venv
+.venv
+.zoom-bot-venv
+
+# Logs
+*.log
+logs/
+.logs/
+
+# Media files
+*.mp4
+*.m4a
+
+# DB (if a local database is used)
+db.sqlite3
+
+# Docker garbage
+Dockerfile~
+docker-compose.override.yml
+
+# Git
+.git/
+.gitignore

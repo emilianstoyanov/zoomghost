@@ -1,0 +1,627 @@
+<!--zoom-ghost-web\index.html-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ZoomGhost | Automate Your Meetings</title>
+  <link rel="icon"
+        href="assets/logo.png"/>
+
+  <!-- Styles -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="min-h-screen flex flex-col text-white font-sans">
+<!-- Navigation Bar -->
+<nav class="w-full bg-white/5 backdrop-blur-lg border-b border-white/10 fixed top-0 z-50">
+  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+    <div class="flex items-center gap-2">
+      <img
+        src="assets/logo.png"
+        class="w-8 h-8 object-contain" alt="ZoomGhost Logo"/>
+      <span class="font-bold text-xl">ZoomGhost</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <button id="nav-login-btn"
+              class="bg-indigo-500 hover:bg-indigo-600 px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm">
+        <i class="ri-login-box-line"></i>
+        <span>Login</span>
+      </button>
+      <button id="nav-logout-btn"
+              class="hidden bg-white/10 hover:bg-white/20 px-4 py-2 rounded-lg transition flex items-center gap-2 text-sm">
+        <i class="ri-logout-box-line"></i>
+        <span>Logout</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Main Content -->
+<div class="flex-1 flex flex-col">
+  <!-- Landing Page View -->
+  <div id="view-landing" class="min-h-screen pt-20">
+    <div class="container mx-auto px-4 py-12">
+      <div class="max-w-4xl mx-auto text-center mb-12">
+        <h1 class="text-5xl font-bold mb-4">Transform Your Meeting Experience</h1>
+        <div class="flex items-center justify-center gap-3 mb-6">
+          <span class="project-status-badge">
+            <i class="ri-pause-circle-line"></i>
+            <span>Project On Hold</span>
+          </span>
+        </div>
+        <p class="text-xl text-white/70 mb-8">Streamline your workflow with AI-powered meeting automation. Perfect for
+          teams and businesses of all sizes.</p>
+
+        <!-- Infrastructure Architecture Diagram -->
+        <div class="relative mb-12 rounded-xl overflow-hidden glass-card p-8">
+          <h2 class="text-2xl font-bold mb-6 text-center flex items-center justify-center gap-2">
+            <i class="ri-cloud-line text-indigo-400"></i>
+            Technology Stack & Infrastructure
+          </h2>
+          <div class="infrastructure-diagram">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- AWS Services Column -->
+              <div class="space-y-4">
+                <div class="text-center mb-4">
+                  <h3 class="text-lg font-semibold text-orange-400 flex items-center justify-center gap-2">
+                    <i class="ri-cloud-line"></i>
+                    AWS Cloud
+                  </h3>
+                </div>
+                <div class="infra-item bg-gradient-to-br from-orange-500/20 to-orange-600/10 border-orange-500/30">
+                  <i class="ri-server-line text-orange-400"></i>
+                  <div>
+                    <div class="font-semibold">ECS / Fargate</div>
+                    <div class="text-xs text-white/60">Container Orchestration</div>
+                  </div>
+                </div>
+                <div class="infra-item bg-gradient-to-br from-orange-500/20 to-orange-600/10 border-orange-500/30">
+                  <i class="ri-bar-chart-line text-orange-400"></i>
+                  <div>
+                    <div class="font-semibold">Application Load Balancer</div>
+                    <div class="text-xs text-white/60">Traffic Distribution</div>
+                  </div>
+                </div>
+                <div class="infra-item bg-gradient-to-br from-orange-500/20 to-orange-600/10 border-orange-500/30">
+                  <i class="ri-shield-keyhole-line text-orange-400"></i>
+                  <div>
+                    <div class="font-semibold">Secrets Manager</div>
+                    <div class="text-xs text-white/60">Secure Credentials</div>
+                  </div>
+                </div>
+                <div class="infra-item bg-gradient-to-br from-orange-500/20 to-orange-600/10 border-orange-500/30">
+                  <i class="ri-mail-send-line text-orange-400"></i>
+                  <div>
+                    <div class="font-semibold">SES</div>
+                    <div class="text-xs text-white/60">Email Service</div>
+                  </div>
+                </div>
+                <div class="infra-item bg-gradient-to-br from-orange-500/20 to-orange-600/10 border-orange-500/30">
+                  <i class="ri-eye-line text-orange-400"></i>
+                  <div>
+                    <div class="font-semibold">CloudWatch</div>
+                    <div class="text-xs text-white/60">Monitoring & Logging</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Core Application Column -->
+              <div class="space-y-4">
+                <div class="text-center mb-4">
+                  <h3 class="text-lg font-semibold text-indigo-400 flex items-center justify-center gap-2">
+                    <i class="ri-code-box-line"></i>
+                    Application Layer
+                  </h3>
+                </div>
+                <div class="infra-item-large bg-gradient-to-br from-indigo-500/30 to-purple-600/20 border-indigo-500/50">
+                  <i class="ri-code-s-slash-line text-3xl text-indigo-300 mb-3"></i>
+                  <div class="text-center">
+                    <div class="font-bold text-lg mb-1">FastAPI</div>
+                    <div class="text-sm text-white/70 mb-2">Python 3.10</div>
+                    <div class="flex flex-wrap gap-1 justify-center text-xs">
+                      <span class="px-2 py-1 bg-white/10 rounded">Async/Await</span>
+                      <span class="px-2 py-1 bg-white/10 rounded">Webhooks</span>
+                      <span class="px-2 py-1 bg-white/10 rounded">REST API</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="infra-item bg-gradient-to-br from-purple-500/20 to-purple-600/10 border-purple-500/30">
+                  <i class="ri-database-2-line text-purple-400"></i>
+                  <div>
+                    <div class="font-semibold">Supabase</div>
+                    <div class="text-xs text-white/60">PostgreSQL Database</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- External Services Column -->
+              <div class="space-y-4">
+                <div class="text-center mb-4">
+                  <h3 class="text-lg font-semibold text-blue-400 flex items-center justify-center gap-2">
+                    <i class="ri-plug-line"></i>
+                    External Services
+                  </h3>
+                </div>
+                <div class="infra-item bg-gradient-to-br from-blue-500/20 to-blue-600/10 border-blue-500/30">
+                  <i class="ri-vidicon-line text-blue-400"></i>
+                  <div>
+                    <div class="font-semibold">Zoom API</div>
+                    <div class="text-xs text-white/60">OAuth 2.0, Webhooks</div>
+                  </div>
+                </div>
+                <div class="infra-item bg-gradient-to-br from-pink-500/20 to-pink-600/10 border-pink-500/30">
+                  <i class="ri-slack-line text-pink-400"></i>
+                  <div>
+                    <div class="font-semibold">Slack API</div>
+                    <div class="text-xs text-white/60">Bot Integration</div>
+                  </div>
+                </div>
+                <div class="infra-item bg-gradient-to-br from-green-500/20 to-green-600/10 border-green-500/30">
+                  <i class="ri-brain-line text-green-400"></i>
+                  <div>
+                    <div class="font-semibold">OpenAI</div>
+                    <div class="text-xs text-white/60">Whisper & GPT-3.5</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- DevOps Tools Row -->
+            <div class="mt-8 pt-6 border-t border-white/10">
+              <div class="text-center mb-4">
+                <h3 class="text-lg font-semibold text-cyan-400 flex items-center justify-center gap-2">
+                  <i class="ri-tools-line"></i>
+                  DevOps & Tools
+                </h3>
+              </div>
+              <div class="flex flex-wrap justify-center gap-3">
+                <div class="devops-badge">
+                  <i class="ri-docker-line text-cyan-400"></i>
+                  <span>Docker</span>
+                </div>
+                <div class="devops-badge">
+                  <i class="ri-git-branch-line text-cyan-400"></i>
+                  <span>GitHub Actions</span>
+                </div>
+                <div class="devops-badge">
+                  <i class="ri-file-code-line text-cyan-400"></i>
+                  <span>CloudFormation</span>
+                </div>
+                <div class="devops-badge">
+                  <i class="ri-terminal-box-line text-cyan-400"></i>
+                  <span>AWS CLI</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Business Benefits -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-12">
+          <div class="glass-card p-6 rounded-xl">
+            <div class="w-12 h-12 bg-indigo-500/20 rounded-lg flex items-center justify-center mb-4">
+              <i class="ri-timer-line text-2xl text-indigo-400"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Save Time</h3>
+            <p class="text-white/70">Reduce meeting overhead by up to 40% with automated summaries and action items.</p>
+          </div>
+          <div class="glass-card p-6 rounded-xl">
+            <div class="w-12 h-12 bg-purple-500/20 rounded-lg flex items-center justify-center mb-4">
+              <i class="ri-team-line text-2xl text-purple-400"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Boost Productivity</h3>
+            <p class="text-white/70">Keep your team aligned with instant meeting notes and smart task delegation.</p>
+          </div>
+          <div class="glass-card p-6 rounded-xl">
+            <div class="w-12 h-12 bg-blue-500/20 rounded-lg flex items-center justify-center mb-4">
+              <i class="ri-line-chart-line text-2xl text-blue-400"></i>
+            </div>
+            <h3 class="text-xl font-semibold mb-2">Drive Results</h3>
+            <p class="text-white/70">Track meeting outcomes and measure team performance with detailed analytics.</p>
+          </div>
+        </div>
+
+        <!-- Integration Showcase -->
+        <div class="bg-white/5 rounded-xl p-8 backdrop-blur-sm">
+          <h2 class="text-2xl font-bold mb-6">Seamless Integration with Your Tools</h2>
+          <div class="flex flex-wrap justify-center items-center gap-8">
+            <div class="text-center">
+              <div class="w-16 h-16 bg-[#4A154B] rounded-lg flex items-center justify-center mb-2">
+                <i class="ri-slack-line text-3xl"></i>
+              </div>
+              <span class="text-sm">Slack</span>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-[#2D8CFF] rounded-lg flex items-center justify-center mb-2">
+                <i class="ri-vidicon-line text-3xl"></i>
+              </div>
+              <span class="text-sm">Zoom</span>
+            </div>
+            <div class="text-center">
+              <div class="w-16 h-16 bg-[#34A853] rounded-lg flex items-center justify-center mb-2">
+                <i class="ri-calendar-line text-3xl"></i>
+              </div>
+              <span class="text-sm">Google Calendar</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing Section -->
+        <div id="prices" class="max-w-6xl mx-auto mt-24 mb-24">
+          <h2 class="text-4xl font-bold text-center mb-4">Choose Your Plan</h2>
+          <p class="text-xl text-white/70 text-center mb-12">Flexible Solutions for Every Business</p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Starter Plan -->
+            <div
+              class="glass-card p-8 rounded-xl border border-white/10 hover:border-indigo-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
+              <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold mb-2">Starter</h3>
+                <div class="text-4xl font-bold mb-2">
+                  €29<span class="text-lg text-white/70">/month</span>
+                </div>
+                <p class="text-white/70">Perfect for small teams</p>
+              </div>
+              <ul class="space-y-4 mb-8">
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>Up to 5 users</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>10 hours of recordings monthly</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>Basic integrations</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>Email support</span>
+                </li>
+              </ul>
+              <button
+                class="w-full py-3 rounded-lg bg-white/10 hover:bg-indigo-500 transition-all duration-300 font-medium">
+                Get Started
+              </button>
+            </div>
+
+            <!-- Professional Plan -->
+            <div
+              class="glass-card p-8 rounded-xl border border-indigo-500 hover:border-indigo-400 transition-all duration-300 hover:transform hover:-translate-y-2 relative">
+              <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                <span class="bg-indigo-500 text-sm font-medium px-4 py-1 rounded-full">Most Popular</span>
+              </div>
+              <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold mb-2">Professional</h3>
+                <div class="text-4xl font-bold mb-2">
+                  €79<span class="text-lg text-white/70">/month</span>
+                </div>
+                <p class="text-white/70">For growing companies</p>
+              </div>
+              <ul class="space-y-4 mb-8">
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>Up to 20 users</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>50 hours of recordings monthly</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>All integrations</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>Priority support</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>Custom reports</span>
+                </li>
+              </ul>
+              <button
+                class="w-full py-3 rounded-lg bg-indigo-500 hover:bg-indigo-600 transition-all duration-300 font-medium">
+                Choose Professional
+              </button>
+            </div>
+
+            <!-- Enterprise Plan -->
+            <div
+              class="glass-card p-8 rounded-xl border border-white/10 hover:border-indigo-500/50 transition-all duration-300 hover:transform hover:-translate-y-2">
+              <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold mb-2">Enterprise</h3>
+                <div class="text-4xl font-bold mb-2">
+                  Custom
+                </div>
+                <p class="text-white/70">For large organizations</p>
+              </div>
+              <ul class="space-y-4 mb-8">
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>Unlimited users</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>Unlimited recordings</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>Custom integrations</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>24/7 Premium support</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <i class="ri-checkbox-circle-line text-green-400"></i>
+                  <span>Dedicated training</span>
+                </li>
+              </ul>
+              <button
+                class="w-full py-3 rounded-lg bg-white/10 hover:bg-indigo-500 transition-all duration-300 font-medium">
+                Contact Us
+              </button>
+            </div>
+          </div>
+
+          <!-- Additional Features -->
+          <div class="mt-16 text-center">
+            <h3 class="text-2xl font-bold mb-8">All Plans Include</h3>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+              <div class="glass-card p-6 rounded-xl">
+                <i class="ri-shield-check-line text-3xl text-indigo-400 mb-4"></i>
+                <h4 class="font-semibold mb-2">Enterprise-Grade Security</h4>
+                <p class="text-sm text-white/70">256-bit encryption</p>
+              </div>
+              <div class="glass-card p-6 rounded-xl">
+                <i class="ri-customer-service-2-line text-3xl text-indigo-400 mb-4"></i>
+                <h4 class="font-semibold mb-2">Expert Support</h4>
+                <p class="text-sm text-white/70">Always available</p>
+              </div>
+              <div class="glass-card p-6 rounded-xl">
+                <i class="ri-cloud-line text-3xl text-indigo-400 mb-4"></i>
+                <h4 class="font-semibold mb-2">Cloud Storage</h4>
+                <p class="text-sm text-white/70">Secure and accessible</p>
+              </div>
+              <div class="glass-card p-6 rounded-xl">
+                <i class="ri-update-line text-3xl text-indigo-400 mb-4"></i>
+                <h4 class="font-semibold mb-2">Regular Updates</h4>
+                <p class="text-sm text-white/70">New features monthly</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Call to Action -->
+        <div class="mt-12">
+          <button id="landing-login-btn"
+                  class="bg-gradient-to-r from-indigo-500 to-purple-500 px-8 py-4 rounded-lg text-lg font-semibold hover:scale-105 transition shadow-lg">
+            Get Started Now
+          </button>
+          <p class="mt-4 text-white/50">No credit card required • Free trial available</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Auth Modal -->
+  <div id="auth-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="w-full max-w-md p-8 glass-card rounded-xl text-center relative">
+      <button type="button" onclick="document.getElementById('auth-modal').classList.add('hidden')"
+              class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10 transition-all duration-300">
+        <i class="ri-close-line text-xl text-white"></i>
+      </button>
+
+      <!-- Start View -->
+      <div id="view-start">
+        <div
+          class="w-16 h-16 mx-auto mb-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg">
+          <img
+            src="assets/logo.png"
+            class="w-10 h-10 object-contain" alt="ZoomGhost Logo"/>
+        </div>
+        <h2 class="text-2xl font-bold mb-2">Welcome to ZoomGhost</h2>
+        <p class="text-white/70 mb-6">Enter your business email to continue</p>
+
+        <input type="email" id="email-input" class="form-control w-full px-4 py-3 rounded-lg mb-4"
+               placeholder="you@company.com"/>
+
+        <button id="send-link"
+                class="btn-primary w-full px-6 py-3 rounded-lg bg-indigo-500 hover:bg-indigo-600 transition-all duration-300 flex items-center justify-center gap-2">
+          <i class="ri-shield-keyhole-line"></i>
+          <span>Secure Business Access</span>
+        </button>
+
+        <div id="progress-bar" class="w-full h-1 bg-white/10 mt-3 hidden relative overflow-hidden rounded">
+          <div class="absolute inset-0 bg-gradient-to-r from-blue-400 to-violet-500 shine-effect"
+               style="width: 80%"></div>
+        </div>
+      </div>
+
+      <!-- Check Email View -->
+      <div id="view-check-email" class="hidden">
+        <div class="w-16 h-16 mx-auto mb-6 bg-indigo-500/20 rounded-full flex items-center justify-center">
+          <i class="ri-mail-open-line text-3xl text-indigo-300"></i>
+        </div>
+        <h2 class="text-2xl font-semibold mb-4">Check your inbox</h2>
+        <p class="text-white/70">We've sent you a secure access link. Please check your email to continue.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dashboard View -->
+  <div id="view-dashboard" class="hidden pt-20">
+    <div class="container mx-auto px-4 py-8">
+      <h2 class="text-2xl font-semibold mb-8 text-center">Connect Your Services</h2>
+      <!-- Connection buttons grid -->
+      <div class="max-w-3xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-card p-6 rounded-xl border border-white/10">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 bg-[#4A154B] rounded-lg flex items-center justify-center">
+              <i class="ri-slack-line text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold">Slack Integration</h3>
+              <p class="text-sm text-white/70">Connect with your team</p>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <button id="slack-btn"
+                    class="w-full px-4 py-2 rounded-lg font-medium transition bg-gradient-to-r from-[#4A154B] to-[#6B1E6B] hover:opacity-90 active:scale-98 shadow flex items-center justify-center gap-2 text-sm">
+              <i class="ri-slack-line"></i>
+              <span>Connect Slack</span>
+            </button>
+            <a id="connect-slack-link" class="hidden"></a>
+            <button id="disconnect-slack"
+                    class="text-sm text-white/70 hover:text-red-300 hidden items-center justify-center gap-1 w-full">
+              <i class="ri-close-circle-line"></i> Disconnect
+            </button>
+          </div>
+        </div>
+
+        <div class="glass-card p-6 rounded-xl border border-white/10">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 bg-[#2D8CFF] rounded-lg flex items-center justify-center">
+              <i class="ri-vidicon-line text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold">Zoom Integration</h3>
+              <p class="text-sm text-white/70">Manage your meetings</p>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <button id="zoom-btn"
+                    class="w-full px-4 py-2 rounded-lg font-medium transition bg-gradient-to-r from-[#2D8CFF] to-[#2D8CFF]/80 hover:opacity-90 active:scale-98 shadow flex items-center justify-center gap-2 text-sm">
+              <i class="ri-vidicon-line"></i>
+              <span>Connect Zoom</span>
+            </button>
+            <button id="disconnect-zoom"
+                    class="text-sm text-white/70 hover:text-red-300 hidden items-center justify-center gap-1 w-full">
+              <i class="ri-close-circle-line"></i> Disconnect
+            </button>
+          </div>
+        </div>
+
+        <div class="md:col-span-2 glass-card p-6 rounded-xl border border-white/10">
+          <div class="flex items-center gap-4 mb-4">
+            <div class="w-12 h-12 bg-[#34A853] rounded-lg flex items-center justify-center">
+              <i class="ri-calendar-line text-2xl"></i>
+            </div>
+            <div>
+              <h3 class="font-semibold">Google Calendar</h3>
+              <p class="text-sm text-white/70">Sync your schedule</p>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <button
+              class="w-full px-4 py-2 rounded-lg font-medium transition bg-gradient-to-r from-[#34A853] to-[#34A853]/80 hover:opacity-90 active:scale-98 shadow flex items-center justify-center gap-2 text-sm">
+              <i class="ri-calendar-line"></i>
+              <span>Connect Google Calendar</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Dashboard Tabs -->
+      <div class="mt-12 container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+          <div class="flex justify-center gap-3 mb-6">
+            <button id="tab-recordings"
+                    class="tab-btn px-4 py-2 bg-white/5 text-white rounded-lg font-medium shadow hover:bg-white/10 transition flex items-center gap-2 text-sm active-tab">
+              <i class="ri-video-line"></i> Recordings
+            </button>
+          </div>
+
+          <!-- Recordings Tab Content -->
+          <div id="content-recordings" class="tab-content">
+            <div class="glass-card p-6 rounded-xl border border-white/10">
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 bg-indigo-500/20 rounded-lg flex items-center justify-center">
+                    <i class="ri-video-line text-indigo-400 text-xl"></i>
+                  </div>
+                  <h4 class="font-semibold">Your Recordings</h4>
+                </div>
+                <div class="flex items-center gap-3">
+                  <select id="recordings-filter"
+                          class="bg-white/5 border border-white/10 rounded-lg px-3 py-1.5 text-sm appearance-none cursor-pointer hover:bg-white/10 transition">
+                    <option value="all">All Recordings</option>
+                    <option value="7">Last 7 Days</option>
+                    <option value="30">Last 30 Days</option>
+                  </select>
+                  <button id="refresh-recordings"
+                          class="bg-white/5 hover:bg-white/10 p-2 rounded-lg transition flex items-center justify-center">
+                    <i class="ri-refresh-line text-sm"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div id="recordings-list" class="space-y-3 max-h-[400px] overflow-y-auto pr-2 custom-scrollbar">
+                <!-- Recordings will be loaded here -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Chat Bubble -->
+<div id="chat-bubble"
+     class="fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center cursor-pointer shadow-lg">
+  <i class="ri-message-3-line text-white text-xl"></i>
+</div>
+
+<!-- Chat Window -->
+<div id="chat-window"
+     class="fixed bottom-24 right-6 z-50 w-96 min-h-[280px] glass-card rounded-xl shadow-2xl p-5 text-white hidden flex-col gap-3 resize overflow-auto transition-all duration-300">
+  <div class="text-lg font-semibold border-b border-white/10 pb-2 flex justify-between items-center">
+    <div class="flex items-center gap-2">
+      <i class="ri-customer-service-2-line text-indigo-400"></i>
+      Contact Support
+    </div>
+    <button id="chat-close" class="text-white/50 hover:text-white/90 transition">
+      <i class="ri-close-line"></i>
+    </button>
+  </div>
+  <input type="email" id="chat-email" placeholder="Your email"
+         class="form-control w-full px-3 py-2 rounded-md text-sm"/>
+  <textarea id="chat-message" placeholder="How can we help?"
+            class="form-control w-full px-3 py-2 rounded-md text-sm min-h-[100px] resize-y"></textarea>
+  <button id="chat-send" class="btn-primary w-full py-2 rounded-lg flex items-center justify-center gap-2">
+    <i class="ri-send-plane-line"></i>
+    Send Message
+  </button>
+</div>
+
+<!-- Status Message -->
+<div id="chat-status"
+     class="fixed bottom-6 right-6 z-50 px-4 py-2 rounded-lg shadow-md opacity-0 transition-opacity duration-300 pointer-events-none text-sm font-medium flex items-center gap-2">
+  <span id="chat-status-icon"><i class="ri-information-line"></i></span>
+  <span id="chat-status-text"></span>
+  <span class="ml-auto cursor-pointer text-xs hover:text-red-300" id="chat-status-close">
+        <i class="ri-close-line"></i>
+      </span>
+</div>
+
+<!-- Add toast container -->
+<div id="toast" class="fixed bottom-4 right-4 px-4 py-2 rounded-lg shadow-lg hidden"></div>
+
+<!-- Scripts at the end of body -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.39.7/dist/umd/supabase.js"></script>
+<script src="config.js"></script>
+<script src="supabaseClient.js"></script>
+<script src="app.js"></script>
+<script src="chat-widget.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+.idea/
+.env
+.env.*
+!.env.example
+config.js
+.netlify/
+node_modules/

@@ -1,0 +1,141 @@
+name: Deploy to AWS Fargate
+
+on:
+  push:
+    branches: [ main ]
+
+env:
+  AWS_REGION: eu-central-1
+  ECR_REPOSITORY: zoom-bot
+  ECS_CLUSTER: zoom-bot-cluster
+  ECS_SERVICE: zoom-bot-service
+  TASK_DEFINITION_FAMILY: zoom-bot-task
+  CONTAINER_NAME: zoom-bot
+
+jobs:
+  deploy:
+    name: Build, Test & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest
+
+      - name: Create dummy .env for CI tests
+        run: |
+          echo "ZOOM_S2S_CLIENT_ID=dummy" >> .env
+          echo "ZOOM_S2S_CLIENT_SECRET=dummy" >> .env
+          echo "ZOOM_ACCOUNT_ID=dummy_account" >> .env
+          echo "OPENAI_API_KEY=dummy" >> .env
+          echo "TEMP_DIR=/tmp" >> .env
+          echo "CI=true" >> .env
+          echo "SUPABASE_URL=https://dummy.supabase.co" >> .env
+          echo "SUPABASE_KEY=dummy_key" >> .env
+
+      #      - name: Run tests
+      #        run: |
+      #          PYTHONPATH=. pytest
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        run: |
+          aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com
+
+      - name: Generate image tag
+        run: |
+          echo "IMAGE_TAG=v$(date +%Y-%m-%d-%H-%M)" >> $GITHUB_ENV
+
+      - name: Build Docker image
+        run: |
+          docker build -t $ECR_REPOSITORY:$IMAGE_TAG .
+          docker tag $ECR_REPOSITORY:$IMAGE_TAG ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+          docker tag $ECR_REPOSITORY:$IMAGE_TAG ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest
+
+      - name: Push Docker image to ECR
+        run: |
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG
+          docker push ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:latest
+
+      - name: Register new ECS task definition revision
+        run: |
+          aws ecs register-task-definition \
+            --family $TASK_DEFINITION_FAMILY \
+            --network-mode awsvpc \
+            --requires-compatibilities FARGATE \
+            --cpu "512" \
+            --memory "1024" \
+            --execution-role-arn arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/ecsTaskExecutionRole \
+            --container-definitions "[{
+              \"name\": \"$CONTAINER_NAME\",
+              \"image\": \"${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.$AWS_REGION.amazonaws.com/$ECR_REPOSITORY:$IMAGE_TAG\",
+              \"portMappings\": [{
+                \"containerPort\": 80,
+                \"protocol\": \"tcp\"
+              }],
+              \"essential\": true,
+              \"secrets\": [
+                { \"name\": \"OPENAI_API_KEY\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/OPENAI_API_KEY\" },
+                { \"name\": \"SLACK_BOT_TOKEN\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/SLACK_BOT_TOKEN\" },
+                { \"name\": \"SES_SOURCE_EMAIL\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/SES_SOURCE_EMAIL\" },
+                { \"name\": \"ENV\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/ENV\" },
+                { \"name\": \"DEBUG\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/DEBUG\" },
+                { \"name\": \"SLACK_CLIENT_ID\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/SLACK_CLIENT_ID\" },
+                { \"name\": \"SLACK_CLIENT_SECRET\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/SLACK_CLIENT_SECRET\" },
+                { \"name\": \"SLACK_SIGNING_SECRET\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/SLACK_SIGNING_SECRET\" },
+                { \"name\": \"SUPABASE_URL\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/SUPABASE_URL\" },
+                { \"name\": \"SUPABASE_KEY\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/SUPABASE_KEY\" },
+                { \"name\": \"ZOOM_REDIRECT_URI\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/ZOOM_REDIRECT_URI\" },
+                { \"name\": \"AWS_ACCESS_KEY_ID\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/AWS_ACCESS_KEY_ID\" },
+                { \"name\": \"ZOOM_ACCOUNT_ID\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/ZOOM_ACCOUNT_ID\" },
+                { \"name\": \"ZOOM_S2S_CLIENT_SECRET\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/ZOOM_S2S_CLIENT_SECRET\" },
+                { \"name\": \"ZOOM_S2S_CLIENT_ID\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/ZOOM_S2S_CLIENT_ID\" },
+                { \"name\": \"AWS_SECRET_ACCESS_KEY\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/AWS_SECRET_ACCESS_KEY\" },
+                { \"name\": \"ZOOM_WEBHOOK_SECRET_TOKEN\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/ZOOM_WEBHOOK_SECRET_TOKEN\" },
+                { \"name\": \"ZOOM_SKIP_SIGNATURE_CHECK\", \"valueFrom\": \"arn:aws:secretsmanager:eu-central-1:${{ secrets.AWS_ACCOUNT_ID }}:secret:zoom-bot/ZOOM_SKIP_SIGNATURE_CHECK\" }
+              ],
+              \"logConfiguration\": {
+                \"logDriver\": \"awslogs\",
+                \"options\": {
+                  \"awslogs-group\": \"/ecs/$TASK_DEFINITION_FAMILY\",
+                  \"awslogs-region\": \"$AWS_REGION\",
+                  \"awslogs-stream-prefix\": \"ecs\"
+                }
+              }
+            }]"
+
+      - name: Get latest task definition ARN
+        id: get-task-def
+        run: |
+          TASK_DEF_ARN=$(aws ecs describe-task-definition \
+            --task-definition $TASK_DEFINITION_FAMILY \
+            --query 'taskDefinition.taskDefinitionArn' \
+            --output text)
+          echo "TASK_DEF_ARN=$TASK_DEF_ARN" >> $GITHUB_ENV
+
+      - name: Update ECS service to new revision
+        run: |
+          aws ecs update-service \
+            --cluster $ECS_CLUSTER \
+            --service $ECS_SERVICE \
+            --task-definition $TASK_DEF_ARN \
+            --force-new-deployment

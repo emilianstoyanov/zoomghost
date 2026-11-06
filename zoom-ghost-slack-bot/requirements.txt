@@ -1,0 +1,10 @@
+fastapi==0.110.1
+uvicorn==0.29.0
+httpx==0.23.3
+python-dotenv==1.0.1
+celery==5.3.6
+supabase==1.0.3
+redis==5.0.1
+python-multipart==0.0.9
+requests
+PyJWT==2.8.0

@@ -1,0 +1,341 @@
+/* zoom-ghost-web\style.css */
+/* Main styling for the elegant business interface */
+:root {
+  --primary-color: #0a2540;
+  --primary-light: #173d64;
+  --accent-color: #4f46e5;
+  --accent-hover: #4338ca;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --danger-color: #ef4444;
+  --text-light: #f8fafc;
+  --text-dark: #1e293b;
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.12);
+}
+
+body,
+#chat-window {
+  font-family: 'Inter', sans-serif;
+}
+
+body {
+  background: linear-gradient(135deg, var(--primary-color), #2c3e50);
+  background-size: 400% 400%;
+}
+
+/* Glass card effect */
+.glass-card {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Button styling */
+.btn-primary {
+  background: linear-gradient(90deg, var(--accent-color), #6366f1);
+  color: var(--text-light);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+  border: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.4);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Form controls */
+.form-control {
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 0 2px rgba(79, 70, 229, 0.25);
+}
+
+.form-control::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Animations */
+@keyframes floatBackground {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+body {
+  animation: floatBackground 20s ease infinite;
+}
+
+@keyframes shineEffect {
+  0% {
+    background-position: -100% 0;
+  }
+
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.shine-effect {
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
+  background-size: 200% 100%;
+  animation: shineEffect 2s infinite linear;
+}
+
+/* Chat widget styling */
+#chat-bubble {
+  background: linear-gradient(135deg, var(--accent-color), #6366f1);
+  box-shadow: 0 4px 20px rgba(79, 70, 229, 0.4);
+  transition: all 0.3s ease;
+}
+
+#chat-bubble:hover {
+  transform: scale(1.1) rotate(10deg);
+}
+
+#chat-window {
+  background-color: var(--primary-light);
+  color: var(--text-light);
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#chat-window input,
+#chat-window textarea {
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+  border-radius: 8px;
+}
+
+#chat-send {
+  background: linear-gradient(90deg, var(--accent-color), #6366f1);
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+}
+
+#chat-send:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(79, 70, 229, 0.4);
+}
+
+#chat-status {
+  background-color: var(--primary-light);
+  border-left: 4px solid var(--success-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  border-radius: 8px;
+}
+
+#chat-status.success {
+  background-color: rgba(16, 185, 129, 0.2);
+  border-left-color: var(--success-color);
+}
+
+#chat-status.error {
+  background-color: rgba(239, 68, 68, 0.2);
+  border-left-color: var(--danger-color);
+}
+
+/* Tab styling */
+.tab-btn {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.tab-btn.active-tab {
+  background-color: rgba(255, 255, 255, 0.1);
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.tab-btn.active-tab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--accent-color), #6366f1);
+}
+
+/* Tag badges */
+.badge {
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.badge-primary {
+  background-color: rgba(79, 70, 229, 0.2);
+  color: #c7d2fe;
+}
+
+/* Connection status indicators */
+.connection-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.connection-active {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #a7f3d0;
+  border: 1px solid rgba(16, 185, 129, 0.4);
+}
+
+.connection-inactive {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: #fde68a;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+/* Infrastructure Diagram Styles */
+.infrastructure-diagram {
+  position: relative;
+  min-height: 500px;
+  padding: 1rem;
+}
+
+.infra-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border-radius: 12px;
+  border: 1px solid;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  cursor: default;
+}
+
+.infra-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  border-color: currentColor;
+}
+
+.infra-item i {
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.infra-item-large {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  border: 2px solid;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  cursor: default;
+  min-height: 180px;
+}
+
+.infra-item-large:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.4);
+  border-color: currentColor;
+}
+
+.devops-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background: rgba(6, 182, 212, 0.15);
+  border: 1px solid rgba(6, 182, 212, 0.3);
+  border-radius: 8px;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.devops-badge:hover {
+  background: rgba(6, 182, 212, 0.25);
+  border-color: rgba(6, 182, 212, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(6, 182, 212, 0.3);
+}
+
+.devops-badge i {
+  font-size: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .infrastructure-diagram {
+    min-height: auto;
+  }
+  
+  .infra-item-large {
+    min-height: 150px;
+    padding: 1.5rem 1rem;
+  }
+  
+  .infra-item-large i {
+    font-size: 2rem;
+  }
+}
+
+/* Project Status Badge */
+.project-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(251, 191, 36, 0.15));
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  border-radius: 9999px;
+  color: #fbbf24;
+  font-size: 0.875rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.project-status-badge:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(251, 191, 36, 0.2));
+  border-color: rgba(245, 158, 11, 0.6);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.3);
+}
+
+.project-status-badge i {
+  font-size: 1rem;
+}
